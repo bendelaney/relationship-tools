@@ -12,7 +12,6 @@ export default function AftermathTool({ onClose }: { onClose: () => void }) {
   const [toastVisible, setToastVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [copyLabel, setCopyLabel] = useState("Copy");
-  const overlayRef = useRef<HTMLDivElement>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const persist = useCallback((next: AftermathState) => {
@@ -44,15 +43,6 @@ export default function AftermathTool({ onClose }: { onClose: () => void }) {
       saveState(next);
       return next;
     });
-  }, []);
-
-  const goto = useCallback((step: string) => {
-    setState((prev) => {
-      const next = { ...prev, step };
-      saveState(next);
-      return next;
-    });
-    overlayRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   const stepIdx = STEPS.indexOf(state.step as typeof STEPS[number]);
@@ -90,11 +80,32 @@ export default function AftermathTool({ onClose }: { onClose: () => void }) {
     setTimeout(() => setCopyLabel("Copy"), 1400);
   };
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const goto = useCallback((step: string) => {
+    setState((prev) => {
+      const next = { ...prev, step };
+      saveState(next);
+      return next;
+    });
+    scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   return (
     <>
-      <div className={`toast${toastVisible ? " on" : ""}`}>Saved</div>
+      <div className="overlay-content" ref={scrollRef}>
+        <div className="overlay-bar">
+          <button className="close-btn" type="button" onClick={onClose}>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M11 3 5 8l6 5" />
+            </svg>
+            <span>Tools</span>
+          </button>
+        </div>
 
-      <div className="app">
+        <div className={`toast${toastVisible ? " on" : ""}`}>Saved</div>
+
+        <div className="app">
         <header className="mast">
           <div className="eye">Gottman Method</div>
           <h1>Aftermath of <em>a Fight</em></h1>
@@ -261,6 +272,7 @@ export default function AftermathTool({ onClose }: { onClose: () => void }) {
         <p className="hint" style={{ textAlign: "center", fontSize: 12 }}>
           Your responses save automatically on this device. Nothing leaves your phone.
         </p>
+      </div>
       </div>
 
       {/* Footer nav */}

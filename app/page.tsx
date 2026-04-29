@@ -78,15 +78,6 @@ export default function Home() {
         className={`overlay${openTool === "aftermath" ? " open" : ""}`}
         aria-hidden={openTool !== "aftermath"}
       >
-        <div className="overlay-bar">
-          <button className="close-btn" type="button" onClick={handleClose}>
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M11 3 5 8l6 5" />
-            </svg>
-            <span>Tools</span>
-          </button>
-        </div>
-
         {openTool === "aftermath" && <AftermathTool onClose={handleClose} />}
       </div>
     </>
