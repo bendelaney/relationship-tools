@@ -1,66 +1,94 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useState, useEffect } from "react";
+import KintsugiIcon from "./components/KintsugiIcon";
+import AftermathTool from "./components/AftermathTool";
 
 export default function Home() {
+  const [openTool, setOpenTool] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      if (id === "aftermath") setOpenTool("aftermath");
+    }
+
+    const onPopState = () => {
+      if (!history.state?.tool) setOpenTool(null);
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  useEffect(() => {
+    if (openTool) {
+      document.body.classList.add("locked");
+    } else {
+      document.body.classList.remove("locked");
+    }
+  }, [openTool]);
+
+  const handleOpen = (tool: string) => {
+    setOpenTool(tool);
+    history.pushState({ tool }, "", "#" + tool);
+  };
+
+  const handleClose = () => {
+    if (history.state?.tool) history.back();
+    else setOpenTool(null);
+  };
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && openTool) handleClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [openTool]);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      {/* Gallery */}
+      <div className="gallery">
+        <header className="g-mast">
+          <div className="eye">Practice</div>
+          <h1>Relationship <em>Tools</em></h1>
+          <div className="credit">Guided exercises for honest connection &amp; repair</div>
+        </header>
+
+        <div className="tiles">
+          <button className="tile" type="button" onClick={() => handleOpen("aftermath")}>
+            <div className="tile-mark">
+              <KintsugiIcon />
+            </div>
+            <div className="tile-body">
+              <div className="tile-eyebrow">Gottman Method</div>
+              <div className="tile-title">Aftermath of <em>a Fight</em></div>
+              <p className="tile-sub">A guided 5-step repair conversation for after a regrettable incident.</p>
+            </div>
+            <div className="tile-arrow">→</div>
+          </button>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <p className="g-foot">More tools coming soon.</p>
+      </div>
+
+      {/* Aftermath Overlay */}
+      <div
+        className={`overlay${openTool === "aftermath" ? " open" : ""}`}
+        aria-hidden={openTool !== "aftermath"}
+      >
+        <div className="overlay-bar">
+          <button className="close-btn" type="button" onClick={handleClose}>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M11 3 5 8l6 5" />
+            </svg>
+            <span>Tools</span>
+          </button>
         </div>
-      </main>
-    </div>
+
+        {openTool === "aftermath" && <AftermathTool onClose={handleClose} />}
+      </div>
+    </>
   );
 }
