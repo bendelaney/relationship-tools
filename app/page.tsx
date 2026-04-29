@@ -2,7 +2,11 @@
 
 import { useState, useEffect } from "react";
 import KintsugiIcon from "./components/KintsugiIcon";
+import UnionIcon from "./components/UnionIcon";
 import AftermathTool from "./components/AftermathTool";
+import UnionTool from "./components/UnionTool";
+
+const TOOLS = ["aftermath", "union"];
 
 export default function Home() {
   const [openTool, setOpenTool] = useState<string | null>(null);
@@ -10,7 +14,7 @@ export default function Home() {
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.slice(1);
-      if (id === "aftermath") setOpenTool("aftermath");
+      if (TOOLS.includes(id)) setOpenTool(id);
     }
 
     const onPopState = () => {
@@ -68,6 +72,18 @@ export default function Home() {
             </div>
             <div className="tile-arrow">→</div>
           </button>
+
+          <button className="tile" type="button" onClick={() => handleOpen("union")}>
+            <div className="tile-mark">
+              <UnionIcon />
+            </div>
+            <div className="tile-body">
+              <div className="tile-eyebrow">Gottman Method</div>
+              <div className="tile-title">State of the <em>Union</em></div>
+              <p className="tile-sub">A weekly check-in to appreciate, reflect, and stay connected.</p>
+            </div>
+            <div className="tile-arrow">→</div>
+          </button>
         </div>
 
         <p className="g-foot">More tools coming soon.</p>
@@ -79,6 +95,14 @@ export default function Home() {
         aria-hidden={openTool !== "aftermath"}
       >
         {openTool === "aftermath" && <AftermathTool onClose={handleClose} />}
+      </div>
+
+      {/* Union Overlay */}
+      <div
+        className={`overlay${openTool === "union" ? " open" : ""}`}
+        aria-hidden={openTool !== "union"}
+      >
+        {openTool === "union" && <UnionTool onClose={handleClose} />}
       </div>
     </>
   );
