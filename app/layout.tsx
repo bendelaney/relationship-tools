@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.scss";
 
 export const metadata: Metadata = {
-  title: "Relationship Tools",
+  title: "Togetherness Tools",
   description: "Guided exercises for honest connection & repair",
 };
 

@@ -55,7 +55,7 @@ export default function Home() {
       {/* Gallery */}
       <div className="gallery">
         <header className="g-mast">
-          <h1>Relationship Tools</h1>
+          <h1>Togetherness Tools</h1>
           <div className="credit">Guided exercises for honest connection &amp; repair</div>
         </header>
 
