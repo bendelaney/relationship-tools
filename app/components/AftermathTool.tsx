@@ -129,7 +129,9 @@ export default function AftermathTool({ onClose }: { onClose: () => void }) {
         <section className={`step${state.step === "1" ? " act" : ""}`} data-step="1">
           <div className="snum">Step One</div>
           <h2 className="stitle">Feelings</h2>
-          <p className="sdesc">Share <em>how</em> you felt. Don&rsquo;t say <em>why</em>. Don&rsquo;t comment on your partner&rsquo;s feelings.</p>
+          <p className="sdesc">Share how <em><strong>you</strong></em> felt. Don&rsquo;t say <em>why</em>. Don&rsquo;t comment on your partner&rsquo;s feelings.<br/>
+            When each of you finishes sharing, the other other should reflect that they heard the shared feelings.
+          </p>
           <div className="lead">I felt&hellip;</div>
           <ChipGroup items={FEELINGS} selected={state.chips.feelings || []} onToggle={(l) => toggleChip("feelings", l)} />
           <label className="flabel">Anything else? (optional)</label>
@@ -145,13 +147,13 @@ export default function AftermathTool({ onClose }: { onClose: () => void }) {
         <section className={`step${state.step === "2" ? " act" : ""}`} data-step="2">
           <div className="snum">Step Two</div>
           <h2 className="stitle">Realities</h2>
-          <p className="sdesc">Describe your &ldquo;reality.&rdquo; Take turns. Summarize and validate at least <em>a part</em> of your partner&rsquo;s reality.</p>
+          <p className="sdesc">Take turns. Each person describes their &ldquo;reality.&rdquo; When they are finished, the listener summarizes and validates at least <em>a part</em> of the speaker&rsquo;s reality.</p>
           <div className="lead">Subjective Reality &amp; Validation</div>
           <div className="card">
-            <div className="hint"><strong>a.</strong> Take turns describing your perceptions, your own reality of what happened during the regrettable incident. Describe <em>yourself</em> and your perception. Don&rsquo;t describe your partner. Avoid attack and blame. Talk about what you might have needed from your partner. Describe your perceptions like a reporter, giving an objective blow-by-blow description. Say <em>&ldquo;I heard you saying,&rdquo;</em> rather than <em>&ldquo;You said.&rdquo;</em></div>
+            <div className="hint"><strong>a. Speaker.</strong> Describe your perceptions, your own reality of what happened during the regrettable incident. Describe <em>yourself</em> and your perception. Don&rsquo;t describe your partner. Avoid attack and blame. Talk about what you might have needed from your partner. Describe your perceptions like a reporter, giving an objective blow-by-blow description. Say <em>&ldquo;I heard you saying,&rdquo;</em> rather than <em>&ldquo;You said.&rdquo;</em></div>
           </div>
           <div className="card">
-            <div className="hint"><strong>b.</strong> Summarize and then validate your partner&rsquo;s reality by saying something like, <em>&ldquo;It makes sense to me how you saw this and what your perceptions and needs were. I get it.&rdquo;</em> Use empathy by saying something like, <em>&ldquo;I can see why this upset you.&rdquo;</em> Validation doesn&rsquo;t mean you agree, but that you can understand even a part of your partner&rsquo;s experience of the incident.</div>
+            <div className="hint"><strong>b. Listener.</strong> Summarize and then validate your partner&rsquo;s reality by saying something like, <em>&ldquo;It makes sense to me how you saw this and what your perceptions and needs were. I get it.&rdquo;</em> Use empathy by saying something like, <em>&ldquo;I can see why this upset you.&rdquo;</em> Validation doesn&rsquo;t mean you agree, but that you can understand even a part of your partner&rsquo;s experience of the incident.</div>
           </div>
           <div className="card">
             <div className="hint"><strong>c.</strong> Do both partners feel understood? If yes, move on. If no, ask, <em>&ldquo;What do I need to know to understand your perspective better?&rdquo;</em> After summarizing and validating, ask your partner, <em>&ldquo;Did I get it?&rdquo;</em> and <em>&ldquo;Is there anything else?&rdquo;</em></div>
@@ -163,7 +165,7 @@ export default function AftermathTool({ onClose }: { onClose: () => void }) {
           <div className="snum">Step Three</div>
           <h2 className="stitle">Triggers</h2>
           <p className="sdesc">Share past experiences or memories that may have escalated this. Help your partner know <em>why</em> these are triggers for you.</p>
-          <div className="lead">What got triggered&hellip;</div>
+          <div className="lead">What got triggered&hellip; "I felt..."</div>
           <ChipGroup items={TRIGGERS} selected={state.chips.triggers || []} onToggle={(l) => toggleChip("triggers", l)} />
           <label className="flabel">My story — an earlier moment with similar feelings</label>
           <textarea
@@ -181,7 +183,7 @@ export default function AftermathTool({ onClose }: { onClose: () => void }) {
             onChange={(e) => setField("t_vuln", e.target.value)}
           />
           <div className="card hint">
-            <strong>Validation:</strong> Does any part of your partner&rsquo;s triggers and story make sense to you? Tell them which part.
+            <strong>Validation: </strong>Does any part of your partner&rsquo;s triggers and story make sense to you? Tell them which part.
           </div>
         </section>
 
@@ -270,7 +272,7 @@ export default function AftermathTool({ onClose }: { onClose: () => void }) {
 
         <hr className="divider" />
         <p className="hint" style={{ textAlign: "center", fontSize: 12 }}>
-          Your responses save automatically on this device. Nothing leaves your phone.
+          Your responses save automatically on this device. Nothing leaves your device.
         </p>
       </div>
       </div>

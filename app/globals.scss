@@ -419,7 +419,7 @@ header.mast {
 
 .sdesc {
   color: var(--soft);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.6;
   margin: 0 0 18px;
 
@@ -460,7 +460,7 @@ header.mast {
   color: var(--soft);
   font: inherit;
   font-size: 17.4px;
-  line-height: 1.3;
+  line-height: 1;
   padding: 10px 14px;
   border-radius: 999px;
   cursor: pointer;
@@ -509,7 +509,7 @@ textarea.field {
 
 .flabel {
   display: block;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--mute);
   margin: 16px 0 6px;
   font-style: italic;
@@ -526,7 +526,7 @@ textarea.field {
 }
 
 .hint {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--soft);
   line-height: 1.55;
 

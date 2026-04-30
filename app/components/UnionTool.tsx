@@ -312,7 +312,7 @@ export default function UnionTool({ onClose }: { onClose: () => void }) {
 
           <hr className="divider" />
           <p className="hint" style={{ textAlign: "center", fontSize: 12 }}>
-            Your responses save automatically on this device. Nothing leaves your phone.
+            Your responses save automatically on this device. Nothing leaves your device.
           </p>
         </div>
       </div>
